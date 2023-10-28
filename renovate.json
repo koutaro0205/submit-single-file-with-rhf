@@ -1,0 +1,18 @@
+{
+  "extends": ["config:base"],
+  "timezone": "Asia/Tokyo",
+  "schedule": "every weekend",
+  "packageRules": [
+    {
+      "groupName": "all minor and patch dependencies",
+      "updateTypes": ["patch", "minor"],
+      "excludePackageNames": ["typescript", "react"],
+      "paths": ["frontend/**"]
+    },
+    {
+      "matchUpdateTypes": ["pin"],
+      "automerge": true
+    }
+  ],
+  "reviewers": ["@koutaro0205"]
+}
