@@ -1,7 +1,9 @@
 import React from 'react';
+import { SendImageForm } from '@/components/SendImageForm';
+import { NextPage } from 'next';
 
-const Home: React.FC = () => {
-  return <p>Hello World</p>;
+const Home: NextPage = () => {
+  return <SendImageForm />;
 };
 
 export default Home;
