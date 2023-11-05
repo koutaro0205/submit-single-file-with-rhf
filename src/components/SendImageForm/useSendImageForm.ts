@@ -1,4 +1,3 @@
-import { useGetImageUrl } from '@/hooks/useGetImageUrl';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -17,7 +16,8 @@ export const useSendImageForm = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const { imageUrl } = useGetImageUrl({ file: imageFile });
+  const [imageSource, setImageSource] = useState('');
+  const [fileName, setFileName] = useState('');
 
   // OS標準のファイル選択ダイアログを開く
   const selectFile = () => {
@@ -25,11 +25,22 @@ export const useSendImageForm = () => {
     fileInputRef.current.click();
   };
 
+  const generateImageData = (files: FileList) => {
+    const file = files[0];
+    const fileReader = new FileReader();
+    setFileName(file.name);
+    fileReader.onload = () => {
+      setImageSource(fileReader.result as string);
+    };
+    fileReader.readAsDataURL(file);
+  };
+
   // 画像が変更された時の処理
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length <= 0) return;
 
+    generateImageData(files);
     setImageFile(files[0]);
   };
 
@@ -55,14 +66,14 @@ export const useSendImageForm = () => {
   };
 
   return {
-    imageFile,
-    imageUrl,
+    fileName,
+    imageSource,
     fileInputRef,
     errors: errors.image,
     rest,
     ref,
-    handleSubmit,
     onSubmit,
+    handleSubmit,
     handleClickCancelButton,
     selectFile,
   };

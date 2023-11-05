@@ -6,7 +6,10 @@ export type Props = {
   id: InputHTMLAttributes<HTMLInputElement>['id'];
   refCallback: RefCallBack;
   fileInputRef: React.MutableRefObject<HTMLInputElement | null>;
-};
+} & React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
 export const ImageInput: React.FC<Props> = ({
   onChange,

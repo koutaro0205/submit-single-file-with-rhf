@@ -9,18 +9,18 @@ import {
   buttonGroup,
   errorMessage,
 } from './style.css';
-import { useSendImageForm, IMAGE_ID } from './useHomePage';
+import { useSendImageForm, IMAGE_ID } from './useSendImageForm';
 
 export const SendImageForm: React.FC = () => {
   const {
-    imageFile,
-    imageUrl,
+    fileName,
+    imageSource,
     fileInputRef,
     errors,
     rest,
     ref,
-    handleSubmit,
     onSubmit,
+    handleSubmit,
     handleClickCancelButton,
     selectFile,
   } = useSendImageForm();
@@ -28,8 +28,8 @@ export const SendImageForm: React.FC = () => {
   return (
     <form className={container} onSubmit={handleSubmit(onSubmit)}>
       <div className={inputField} onClick={selectFile} role="presentation">
-        {imageUrl && imageFile ? (
-          <img src={imageUrl} alt="アップロード画像" className={image} />
+        {fileName ? (
+          <img src={imageSource} alt="アップロード画像" className={image} />
         ) : (
           '+ 画像をアップロード'
         )}
